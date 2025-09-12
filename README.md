@@ -6,6 +6,11 @@
   * Works, nice. 
 * Tested the new Code component
   * Works well 
+* Tested `setItems` on ListDataView
+  * Works well
+* Tried to test the new NPM assets 
+  * Confused about how to use these assets in my project, not straightforward, maybe javadoc could be adjusted?
+
 
 To start the application in development mode, import it into your IDE and run the `Application` class. 
 You can also start the application from the command line by running: 

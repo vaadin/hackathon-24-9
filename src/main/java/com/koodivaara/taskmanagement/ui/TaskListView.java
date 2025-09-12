@@ -6,6 +6,9 @@ import com.koodivaara.taskmanagement.TaskService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.notification.Notification;
@@ -16,9 +19,14 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
+import java.sql.Array;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
@@ -26,6 +34,9 @@ import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRe
 @Route("task-list")
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
+@NpmPackage(value = "bootstrap", version="5.3.8", assets = {
+        "bootstrap/dist/css/*:css"
+})
 class TaskListView extends Main {
 
     private final TaskService taskService;
@@ -56,7 +67,8 @@ class TaskListView extends Main {
         var dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(getLocale());
 
         taskGrid = new Grid<>();
-        taskGrid.setItems(query -> taskService.list(toSpringPageRequest(query)).stream());
+        //taskGrid.setItems(query -> taskService.list(toSpringPageRequest(query)).stream());
+        taskGrid.setItems(new ArrayList<>(createTasks()));
         taskGrid.addColumn(Task::getDescription).setHeader("Description");
         taskGrid.addColumn(task -> Optional.ofNullable(task.getDueDate()).map(dateFormatter::format).orElse("Never"))
                 .setHeader("Due Date");
@@ -69,6 +81,22 @@ class TaskListView extends Main {
 
         add(new ViewToolbar("Task List", ViewToolbar.group(description, dueDate, createBtn)));
         add(taskGrid);
+
+        var buttonToReloadData = new Button("Reload data", event -> taskGrid.getListDataView().setItems(createTasks2()));
+        add(buttonToReloadData);
+    }
+    
+    private List<Task> createTasks() {
+        return List.of(createTask("Do this"), createTask("Do that"), createTask("Do the other thing"));
+    }
+    
+    private List<Task> createTasks2() {
+        return List.of(createTask("Do A"), createTask("Do B"), createTask("Do the other thing"),
+                createTask("Do the aaa thing"), createTask("Do the saaa thing"), createTask("Do the xx thing"));
+    }
+    
+    private Task createTask(String description) {
+        return new Task(description, LocalDateTime.now().toInstant(ZoneOffset.UTC));
     }
 
     private void createTask() {
