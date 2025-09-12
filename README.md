@@ -1,6 +1,11 @@
-# Tundra App README
+# Hackaton App README
 
-- [ ] TODO Replace or update this README with instructions relevant to your application
+* Tested new style properties (background position, rotate, filter, gap)
+  * All worked well. 
+* Tested sort direction short name
+  * Works, nice. 
+* Tested the new Code component
+  * Works well 
 
 To start the application in development mode, import it into your IDE and run the `Application` class. 
 You can also start the application from the command line by running: 
