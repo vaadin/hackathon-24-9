@@ -1,9 +1,7 @@
-# hackathon-24-9
-Hackathon Rules
-1. Versions: Use Platform 24.9.0-rc2 (or the latest version)
-2. Choose your project: You can work on an app, fixes, migrations, new features, docs, addons, DS, or just reporting issues.
-3. Deadline: Upload your work to the GitHub Repository by Monday
-4. Contribution options: If you don’t have any code to show, please add a README or screenshots demoing your work.
-5. Communication: Use Slack channel #hackathon-24-9 for discussions.
-6. Documentation: Refer to vaadin.com/docs/latest for help and information.
+# hackathon-24-9 by Anna
 
+My plan was to try to do some vibe coding with Copilot, but I ended up helping to debug the Eclipse plugin on Windows and code reviewing some PRs instead:
+* https://github.com/vaadin/eclipse-plugin/pull/63
+* https://github.com/vaadin/eclipse-plugin/pull/64
+
+Slack thread: https://vaadin.slack.com/archives/C04JL39LW/p1757656465932949
